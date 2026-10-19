@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ZZWGameMaker.TapAdn
+namespace WXGameMaker.TapAdn
 {
     [Serializable]
     public sealed class RewardedPlacement

@@ -6,7 +6,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace ZZWGameMaker.TapAdn.Tests
+namespace WXGameMaker.TapAdn.Tests
 {
     public sealed class RewardedFlowTests
     {

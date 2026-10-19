@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ZZWGameMaker.TapAdn
+namespace WXGameMaker.TapAdn
 {
     /// <summary>Own on Unity's main thread; Dispose when the game no longer permits ads.</summary>
     public sealed class TapAdnService : IDisposable

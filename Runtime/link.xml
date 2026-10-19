@@ -1,4 +1,4 @@
 <linker>
   <assembly fullname="Dirichlet.Ad.Runtime" preserve="all" ignoreIfMissing="1" />
-  <assembly fullname="ZZWGameMaker.TapAdn.Vendor" preserve="all" ignoreIfMissing="1" />
+  <assembly fullname="WXGameMaker.TapAdn.Vendor" preserve="all" ignoreIfMissing="1" />
 </linker>

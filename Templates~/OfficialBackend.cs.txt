@@ -5,7 +5,7 @@ using Dirichlet.Ad;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-namespace ZZWGameMaker.TapAdn.Vendor
+namespace WXGameMaker.TapAdn.Vendor
 {
     [Preserve]
     public sealed class OfficialBackend : ITapAdnBackend
@@ -32,7 +32,7 @@ namespace ZZWGameMaker.TapAdn.Vendor
         {
             cancellation.ThrowIfCancellationRequested();
             if (disposed) throw new ObjectDisposedException(nameof(OfficialBackend));
-            using (var controller = new AndroidJavaClass("com.zzwgamemaker.tapadn.TapAdnPrivacy"))
+            using (var controller = new AndroidJavaClass("com.wxgamemaker.tapadn.TapAdnPrivacy"))
                 controller.CallStatic("configure", privacy.PersonalizedAds, privacy.AllowOaid, privacy.AllowAndroidId, privacy.AllowSensors);
             var completion = new TaskCompletionSource<bool>();
             var options = new DirichletAdConfig.Builder().WithMediaId(config.MediaId).WithMediaName(config.MediaName)

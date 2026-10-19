@@ -1,0 +1,10 @@
+{
+  "name": "WXGameMaker.TapAdn.Editor",
+  "rootNamespace": "WXGameMaker.TapAdn.Editor",
+  "references": [
+    "WXGameMaker.TapAdn"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

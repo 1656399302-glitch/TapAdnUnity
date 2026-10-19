@@ -10,3 +10,5 @@ Validated on 2026-10-19 with Unity 6000.0.59f2 on macOS.
 - Tests cover consent, privacy defaults, config validation, verified reward deduplication and close/reward order, concurrent requests, no fill, retry, background gating, disposal, initialization/load timeouts, late ad cleanup, checksums, archive paths, vendor SemVer, failed-install preservation and generated Gradle/Manifest idempotency.
 
 No APK/AAB was built or exported. No real media credentials were used, and no device ad request, reward, revenue, Gradle dependency resolution, IL2CPP player link or merged release Manifest was verified. These require an authorized Android build, configured direct media/placement, and a device.
+
+The 0.1.1 WXGameMaker rename was revalidated: required project script compilation, 27/27 minimal-project EditMode tests, and compilation of the renamed Java privacy bridge all passed. The GitHub repository is public.

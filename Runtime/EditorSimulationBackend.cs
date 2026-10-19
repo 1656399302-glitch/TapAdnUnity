@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ZZWGameMaker.TapAdn
+namespace WXGameMaker.TapAdn
 {
     public enum SimulatedAdOutcome { Rewarded, ClosedWithoutReward, NoFill, ShowFailure }
 

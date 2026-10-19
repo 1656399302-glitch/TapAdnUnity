@@ -11,7 +11,7 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ZZWGameMaker.TapAdn.Editor
+namespace WXGameMaker.TapAdn.Editor
 {
     [InitializeOnLoad]
     public static class SdkInstaller
@@ -88,7 +88,7 @@ namespace ZZWGameMaker.TapAdn.Editor
             finally { busy = false; }
         }
 
-        // Unity -batchmode -executeMethod ZZWGameMaker.TapAdn.Editor.SdkInstaller.InstallForBatchMode -quit
+        // Unity -batchmode -executeMethod WXGameMaker.TapAdn.Editor.SdkInstaller.InstallForBatchMode -quit
         public static void InstallForBatchMode()
         {
             if (busy) throw new InvalidOperationException("Another TapADN installation is in progress.");
@@ -147,12 +147,12 @@ namespace ZZWGameMaker.TapAdn.Editor
                 const string oldController = "new UnityCustomController()";
                 if (java.Split(new[] { oldController }, StringSplitOptions.None).Length != 2)
                     throw new InvalidDataException("Unexpected official Java bridge; privacy adaptation was not applied.");
-                java = java.Replace(oldController, "new com.zzwgamemaker.tapadn.TapAdnPrivacy()");
+                java = java.Replace(oldController, "new com.wxgamemaker.tapadn.TapAdnPrivacy()");
                 java = java.Replace("success.set(true);", "success.set(TapAdSdk.isInitialized());");
                 File.WriteAllText(javaPath, java, new UTF8Encoding(false));
                 Write(staging, "Native~/TapAdnPrivacy.java", File.ReadAllBytes(Path.Combine(PackageRoot, "Templates~/TapAdnPrivacy.java.txt")));
                 Write(staging, "Adapter/OfficialBackend.cs", File.ReadAllBytes(Path.Combine(PackageRoot, "Templates~/OfficialBackend.cs.txt")));
-                WriteText(staging, "Adapter/ZZWGameMaker.TapAdn.Vendor.asmdef", "{\"name\":\"ZZWGameMaker.TapAdn.Vendor\",\"references\":[\"ZZWGameMaker.TapAdn\",\"Dirichlet.Ad.Runtime\"]}");
+                WriteText(staging, "Adapter/WXGameMaker.TapAdn.Vendor.asmdef", "{\"name\":\"WXGameMaker.TapAdn.Vendor\",\"references\":[\"WXGameMaker.TapAdn\",\"Dirichlet.Ad.Runtime\"]}");
                 WriteText(staging, "package.json", "{\"name\":\"" + SdkLock.VendorName + "\",\"version\":\"" + SdkLock.VendorPackageVersion + "\",\"displayName\":\"TapADN Official SDK (locally generated)\",\"unity\":\"6000.0\"}");
                 WriteText(staging, "THIRD_PARTY_NOTICES.md", "Downloaded locally from " + SdkLock.Url + "\nOfficial SDK remains subject to its own license and service terms.\nhttps://ssp.dirichlet.cn/docs/compliance/\nSHA256: " + SdkLock.Sha256 + "\nAdaptations: privacy controller, native initialization result, UPM layout, isolated rewarded adapter. No Demo or iOS sources imported.\n");
                 WriteText(staging, "Runtime/Plugins/Android/dirichlet_ad_5.3.0.4.aar.meta", AarMeta);

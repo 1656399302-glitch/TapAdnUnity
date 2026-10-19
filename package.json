@@ -1,11 +1,11 @@
 {
-  "name": "com.zzwgamemaker.tapadn",
-  "version": "0.1.0",
+  "name": "com.wxgamemaker.tapadn",
+  "version": "0.1.1",
   "displayName": "TapADN Rewarded Ads",
   "description": "Android TapADN direct rewarded ads with a verified official SDK installer.",
   "unity": "6000.0",
   "author": {
-    "name": "ZZWGameMaker"
+    "name": "WXGameMaker"
   },
   "license": "MIT",
   "samples": [

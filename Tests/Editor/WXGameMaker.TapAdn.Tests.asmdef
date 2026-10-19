@@ -1,8 +1,8 @@
 {
-  "name": "ZZWGameMaker.TapAdn.Tests",
+  "name": "WXGameMaker.TapAdn.Tests",
   "references": [
-    "ZZWGameMaker.TapAdn",
-    "ZZWGameMaker.TapAdn.Editor"
+    "WXGameMaker.TapAdn",
+    "WXGameMaker.TapAdn.Editor"
   ],
   "includePlatforms": [
     "Editor"

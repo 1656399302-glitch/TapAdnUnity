@@ -5,9 +5,9 @@ using System.IO.Compression;
 using System.Text;
 using NUnit.Framework;
 using UnityEditor.Build;
-using ZZWGameMaker.TapAdn.Editor;
+using WXGameMaker.TapAdn.Editor;
 
-namespace ZZWGameMaker.TapAdn.Tests
+namespace WXGameMaker.TapAdn.Tests
 {
     public sealed class PackagingTests
     {

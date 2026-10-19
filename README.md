@@ -7,12 +7,12 @@ Unity **6000.0.59f2** with Android Build Support (SDK/NDK/OpenJDK), Android, Tap
 In Package Manager choose **Add package from git URL**:
 
 ```text
-https://github.com/1656399302-glitch/TapAdnUnity.git#v0.1.0
+https://github.com/1656399302-glitch/TapAdnUnity.git#v0.1.1
 ```
 
 Private repositories require Git authentication outside Unity (credential helper or an authenticated SSH URL). The package has no nested Git dependencies or scoped registry requirement.
 
-After initial script compilation, the installer downloads official SDK **5.3.0.4** from TapADN, validates MD5 and SHA-256, and generates `Packages/com.zzwgamemaker.tapadn.vendor`. A second script compilation makes the backend available. No advertising SDK initialization happens during installation. Keep the Editor open until **Tools > TapADN > SDK Setup** reports verified and ready.
+After initial script compilation, the installer downloads official SDK **5.3.0.4** from TapADN, validates MD5 and SHA-256, and generates `Packages/com.wxgamemaker.tapadn.vendor`. A second script compilation makes the backend available. No advertising SDK initialization happens during installation. Keep the Editor open until **Tools > TapADN > SDK Setup** reports verified and ready.
 
 First-time setup needs internet. Android builds resolve `com.squareup.okhttp3:okhttp:3.12.1` and its transitive dependencies from Maven Central (or Gradle's cache). This is not an offline distribution.
 
@@ -22,10 +22,12 @@ For CI, import/compile the package first, then run a separate Unity invocation:
 
 ```sh
 "$UNITY_EXECUTABLE" -batchmode -nographics -projectPath /path/to/game \
-  -executeMethod ZZWGameMaker.TapAdn.Editor.SdkInstaller.InstallForBatchMode -quit
+  -executeMethod WXGameMaker.TapAdn.Editor.SdkInstaller.InstallForBatchMode -quit
 ```
 
 Run the project's script compilation check after this invocation. SDK installation is separate from a player build.
+
+When migrating from 0.1.0, remove the previous package and its generated vendor folder before adding 0.1.1. Retain `Assets/TapAdnLocal`; configuration script GUIDs are preserved.
 
 ## Configure per game
 
@@ -34,8 +36,8 @@ Choose **Tools > TapADN > Create Local Configuration**. Fill in the **direct-mod
 The local asset is `Assets/TapAdnLocal/Resources/TapAdnLocalConfig.asset`. Media values must come from your own Dirichlet account. Placeholder values cannot request real ads. The installer adds generated SDK and local configuration exclusions to `.git/info/exclude` when available; for teams and worktrees, also add these rules to the game repository's `.gitignore`:
 
 ```gitignore
-**/Packages/com.zzwgamemaker.tapadn.vendor/
-**/Packages/com.zzwgamemaker.tapadn.vendor.meta
+**/Packages/com.wxgamemaker.tapadn.vendor/
+**/Packages/com.wxgamemaker.tapadn.vendor.meta
 **/Assets/TapAdnLocal/
 **/Assets/TapAdnLocal.meta
 ```
@@ -90,7 +92,7 @@ Simulation code is excluded from players. `CreateAndroid()` fails on unsupported
 
 ## Validate and release
 
-Add `com.zzwgamemaker.tapadn` to the host manifest's `testables` array to run its EditMode tests. Coverage includes consent, opt-in defaults, reward deduplication/order, timeouts, late handles, retry, concurrent calls, background operation, archive safety and idempotent build transforms.
+Add `com.wxgamemaker.tapadn` to the host manifest's `testables` array to run its EditMode tests. Coverage includes consent, opt-in defaults, reward deduplication/order, timeouts, late handles, retry, concurrent calls, background operation, archive safety and idempotent build transforms.
 
 Script compilation and mock tests do not establish Android device compatibility, ad fill or revenue. A separately authorized Android player build must validate the final Merged Manifest, Java/native libraries, IL2CPP preservation, release logging, actual SDK initialize/load/show/reward and foreground recovery. Keep the game's min API/ARM64 settings unless there is a concrete compatibility issue.
 

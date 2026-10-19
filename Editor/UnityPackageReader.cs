@@ -5,7 +5,7 @@ using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ZZWGameMaker.TapAdn.Editor
+namespace WXGameMaker.TapAdn.Editor
 {
     public static class UnityPackageReader
     {

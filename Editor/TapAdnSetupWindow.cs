@@ -2,7 +2,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace ZZWGameMaker.TapAdn.Editor
+namespace WXGameMaker.TapAdn.Editor
 {
     public sealed class TapAdnSetupWindow : EditorWindow
     {

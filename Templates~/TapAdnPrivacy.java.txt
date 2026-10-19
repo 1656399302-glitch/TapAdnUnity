@@ -1,4 +1,4 @@
-package com.zzwgamemaker.tapadn;
+package com.wxgamemaker.tapadn;
 
 import com.tapsdk.tapad.TapAdCustomController;
 import com.tapsdk.tapad.TapAdSdk;

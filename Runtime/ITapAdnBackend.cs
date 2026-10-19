@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ZZWGameMaker.TapAdn
+namespace WXGameMaker.TapAdn
 {
     // Backend extension point; gameplay should depend on TapAdnService instead.
     public interface ITapAdnBackend : IDisposable

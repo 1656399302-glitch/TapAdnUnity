@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ZZWGameMaker.TapAdn
+namespace WXGameMaker.TapAdn
 {
     internal sealed class TapAdnLifecycle : MonoBehaviour
     {

@@ -8,7 +8,7 @@ using UnityEditor.Android;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 
-namespace ZZWGameMaker.TapAdn.Editor
+namespace WXGameMaker.TapAdn.Editor
 {
     public sealed class TapAdnAndroidBuild : IPreprocessBuildWithReport, IPostGenerateGradleAndroidProject
     {
@@ -32,7 +32,7 @@ namespace ZZWGameMaker.TapAdn.Editor
                 Path.GetFileName(f).IndexOf("dirichlet", StringComparison.OrdinalIgnoreCase) >= 0) != 1)
                 throw new BuildFailedException("Conflicting TapADN AARs detected; do not mix direct, mediation, or multiple SDK versions.");
             CopyJava(path, "TapAdUnityBridge.java", "com/dirichlet/unity");
-            CopyJava(path, "TapAdnPrivacy.java", "com/zzwgamemaker/tapadn");
+            CopyJava(path, "TapAdnPrivacy.java", "com/wxgamemaker/tapadn");
             var gradlePath = Path.Combine(path, "build.gradle");
             File.WriteAllText(gradlePath, RewriteModuleGradle(File.ReadAllText(gradlePath)));
             var settingsPath = Path.Combine(Directory.GetParent(path).FullName, "settings.gradle");
@@ -41,7 +41,7 @@ namespace ZZWGameMaker.TapAdn.Editor
             File.WriteAllText(manifestPath, RewriteManifest(File.ReadAllText(manifestPath)));
             var proguardPath = Path.Combine(path, "proguard-unity.txt");
             var rules = File.Exists(proguardPath) ? File.ReadAllText(proguardPath) : "";
-            const string keep = "-keep class com.dirichlet.unity.** { *; }\n-keep class com.zzwgamemaker.tapadn.** { *; }";
+            const string keep = "-keep class com.dirichlet.unity.** { *; }\n-keep class com.wxgamemaker.tapadn.** { *; }";
             if (!rules.Contains(keep)) File.WriteAllText(proguardPath, rules + "\n" + keep + "\n");
         }
         private static void CopyJava(string path, string name, string package)

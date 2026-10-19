@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
-using ZZWGameMaker.TapAdn;
+using WXGameMaker.TapAdn;
 
 public sealed class RewardedVideoExample : MonoBehaviour
 {

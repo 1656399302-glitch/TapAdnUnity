@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Rename the package, namespaces, assemblies, Java helper package and author branding to WXGameMaker (`com.wxgamemaker.tapadn`).
+
 ## 0.1.0
 
 - Android-only TapADN direct rewarded ads, explicit consent, main-thread callbacks, session reward deduplication and Editor simulation.
