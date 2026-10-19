@@ -1,0 +1,13 @@
+{
+  "name": "ZZWGameMaker.TapAdn.Tests",
+  "references": [
+    "ZZWGameMaker.TapAdn",
+    "ZZWGameMaker.TapAdn.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

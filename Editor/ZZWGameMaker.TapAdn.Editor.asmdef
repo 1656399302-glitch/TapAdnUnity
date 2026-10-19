@@ -1,0 +1,10 @@
+{
+  "name": "ZZWGameMaker.TapAdn.Editor",
+  "rootNamespace": "ZZWGameMaker.TapAdn.Editor",
+  "references": [
+    "ZZWGameMaker.TapAdn"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

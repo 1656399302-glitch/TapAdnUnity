@@ -1,0 +1,24 @@
+{
+  "name": "com.zzwgamemaker.tapadn",
+  "version": "0.1.0",
+  "displayName": "TapADN Rewarded Ads",
+  "description": "Android TapADN direct rewarded ads with a verified official SDK installer.",
+  "unity": "6000.0",
+  "author": {
+    "name": "ZZWGameMaker"
+  },
+  "license": "MIT",
+  "samples": [
+    {
+      "displayName": "Rewarded video flow",
+      "description": "Explicit consent, Editor simulation, and game-owned rewards.",
+      "path": "Samples~/RewardedVideo"
+    }
+  ],
+  "dependencies": {
+    "com.unity.modules.androidjni": "1.0.0",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0"
+  }
+}

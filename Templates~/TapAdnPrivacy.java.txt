@@ -1,0 +1,29 @@
+package com.zzwgamemaker.tapadn;
+
+import com.tapsdk.tapad.TapAdCustomController;
+import com.tapsdk.tapad.TapAdSdk;
+
+// Referenced by the locally adapted official Unity bridge, before SDK initialization.
+public final class TapAdnPrivacy extends TapAdCustomController {
+    private static volatile boolean oaid;
+    private static volatile boolean androidId;
+    private static volatile boolean sensors;
+
+    public static void configure(boolean personalized, boolean allowOaid, boolean allowAndroidId, boolean allowSensors) {
+        oaid = allowOaid;
+        androidId = allowAndroidId;
+        sensors = allowSensors;
+        TapAdSdk.putMediaGlobalSettings("personal_ads_type", personalized ? "1" : "0");
+    }
+    @Override public boolean isCanUseOaid() { return oaid; }
+    @Override public boolean isCanUseAndroidId() { return androidId; }
+    @Override public boolean isCanUseSensor() { return sensors; }
+    @Override public boolean isCanUseLocation() { return false; }
+    @Override public boolean isCanUsePhoneState() { return false; }
+    @Override public boolean isCanUseWifiState() { return false; }
+    @Override public boolean isCanUsePhoneMacAddress() { return false; }
+    @Override public boolean isCanUseBssid() { return false; }
+    @Override public boolean isCanUseSsid() { return false; }
+    @Override public boolean isCanUseWriteExternal() { return false; }
+    @Override public boolean alist() { return false; }
+}

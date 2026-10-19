@@ -1,0 +1,104 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Dirichlet.Ad;
+using UnityEngine;
+using UnityEngine.Scripting;
+
+namespace ZZWGameMaker.TapAdn.Vendor
+{
+    [Preserve]
+    public sealed class OfficialBackend : ITapAdnBackend
+    {
+        private static bool owned;
+        private bool disposed;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+        private static void Register()
+        {
+            owned = false;
+#if UNITY_ANDROID && !UNITY_EDITOR
+            TapAdnBackendRegistry.AndroidFactory = () => new OfficialBackend();
+#endif
+        }
+
+        public OfficialBackend()
+        {
+            if (owned) throw new TapAdnException("busy", "Only one Android advertising service can be active.");
+            owned = true;
+        }
+
+        public Task InitializeAsync(TapAdnConfig config, TapAdnPrivacyOptions privacy, CancellationToken cancellation)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            if (disposed) throw new ObjectDisposedException(nameof(OfficialBackend));
+            using (var controller = new AndroidJavaClass("com.zzwgamemaker.tapadn.TapAdnPrivacy"))
+                controller.CallStatic("configure", privacy.PersonalizedAds, privacy.AllowOaid, privacy.AllowAndroidId, privacy.AllowSensors);
+            var completion = new TaskCompletionSource<bool>();
+            var options = new DirichletAdConfig.Builder().WithMediaId(config.MediaId).WithMediaName(config.MediaName)
+                .WithMediaKey(config.MediaKey).EnableDebug(config.EnableDebug && Debug.isDebugBuild).ShakeEnabled(false).Build();
+            DirichletAdSdk.Init(options,
+                result => { if (cancellation.IsCancellationRequested) completion.TrySetCanceled(); else completion.TrySetResult(true); },
+                error => completion.TrySetException(Convert(error)));
+            return completion.Task;
+        }
+
+        public Task<IRewardedAd> LoadRewardedAsync(long spaceId, CancellationToken cancellation)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            if (disposed) throw new ObjectDisposedException(nameof(OfficialBackend));
+            var completion = new TaskCompletionSource<IRewardedAd>();
+            var adNative = DirichletAdManager.CreateAdNative();
+            var request = new DirichletAdRequest.Builder().WithSpaceId(spaceId).Build();
+            adNative.LoadRewardVideoAd(request, ad =>
+            {
+                if (disposed || cancellation.IsCancellationRequested)
+                { ad.Destroy(); completion.TrySetCanceled(); return; }
+                if (!completion.TrySetResult(new OfficialAd(ad))) ad.Destroy();
+            }, error => completion.TrySetException(Convert(error)));
+            return completion.Task;
+        }
+
+        public void Dispose() { if (disposed) return; disposed = true; owned = false; }
+        private static TapAdnException Convert(DirichletError error)
+        {
+            // Do not expose native messages that might contain device/application data.
+            return new TapAdnException(error?.Code ?? "native_error", "The advertising SDK reported an error. Check the media/placement setup.");
+        }
+
+        private sealed class OfficialAd : IRewardedAd
+        {
+            private DirichletRewardVideoAd ad;
+            public bool IsReady => ad != null && ad.IsLoaded && ad.IsValid;
+            public event Action Shown;
+            public event Action<bool> RewardVerified;
+            public event Action Closed;
+            public event Action<TapAdnException> Failed;
+            public OfficialAd(DirichletRewardVideoAd ad)
+            {
+                this.ad = ad;
+                ad.Shown += OnShown;
+                ad.RewardVerified += OnReward;
+                ad.Closed += OnClosed;
+            }
+            private void OnShown() { Shown?.Invoke(); }
+            private void OnReward(DirichletRewardVerificationEventArgs args) { RewardVerified?.Invoke(args.IsVerified); }
+            private void OnClosed() { Closed?.Invoke(); }
+            public bool Show()
+            {
+                if (!IsReady) return false;
+                if (ad.Show()) return true;
+                Failed?.Invoke(new TapAdnException("show_failed", "The native SDK declined to show the ad."));
+                return false;
+            }
+            public void Dispose()
+            {
+                if (ad == null) return;
+                ad.Shown -= OnShown;
+                ad.RewardVerified -= OnReward;
+                ad.Closed -= OnClosed;
+                ad.Destroy(); ad = null;
+            }
+        }
+    }
+}

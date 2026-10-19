@@ -1,0 +1,17 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+*.csproj
+*.sln
+*.log
+.DS_Store
+*.unitypackage
+*.aar
+*.jar
+__pycache__/
+.env
+.env.*
+*.keystore
+*.jks
+tapadn.local.json
